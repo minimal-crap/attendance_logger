@@ -8,9 +8,9 @@ class Employee(Base):
     __tablename__ = "employee"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    designation = Column(String)
-    department = Column(String)
+    name = Column(String(40))
+    designation = Column(String(60))
+    department = Column(String(60))
     checkin_timestamp = Column(DateTime)
 
     def __repr__(self):
