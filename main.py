@@ -4,6 +4,8 @@ from tornado.ioloop import IOLoop
 from tornado.websocket import WebSocketHandler
 from tornado.web import Application
 
+from components import db_handler
+
 
 active_clients = []
 
@@ -38,8 +40,10 @@ class SocketOutputHandler(WebSocketHandler):
 
 
 
-
-
 class EmployeeInputHandler(Application):
     def post(self, *args, **kwargs):
         data = self.request.body
+        send_data_to_clients(data)
+        message = json.loads(data)
+        db_handler.save_employee_data(data)
+
