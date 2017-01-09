@@ -21,3 +21,12 @@ def create_employee_table():
 
     except Exception as err:
         print err.message
+
+
+def save_employee_data(data):
+    try:
+        conn = engine.connect()
+        sql_string = "insert into {0} values({1}, {2}, {3})"
+    except Exception as err:
+        print err.message
+
