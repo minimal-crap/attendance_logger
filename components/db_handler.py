@@ -26,7 +26,7 @@ def create_employee_table():
 def save_employee_data(data):
     try:
         conn = engine.connect()
-        sql_string = "insert into {0} values({1}, {2}, {3})"
+        sql_string = "insert into {0} values({1}, {2}, {3}, {4})"
     except Exception as err:
         print err.message
 
