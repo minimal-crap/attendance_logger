@@ -1,3 +1,6 @@
+import uuid
+import datetime
+
 from sqlalchemy import create_engine
 from conf.settings import db_settings as dbs
 from components.models import Employee
@@ -26,7 +29,13 @@ def create_employee_table():
 def save_employee_data(data):
     try:
         conn = engine.connect()
-        sql_string = "insert into {0} values({1}, {2}, {3}, {4})"
+        current_time = str(datetime.datetime.now())
+        checkin_id = str(uuid.uuid4())
+        sql_string = "insert into {0} values({1}, {2}, {3}, {4}, {5})".format(checkin_id,
+                                                                              data['name'],
+                                                                              data['designation'],
+                                                                              data['department'],
+                                                                              current_time)
     except Exception as err:
         print err.message
 
