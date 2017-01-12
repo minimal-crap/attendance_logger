@@ -47,3 +47,11 @@ class EmployeeInputHandler(Application):
         message = json.loads(data)
         db_handler.save_employee_data(data)
 
+
+class MainApplication(Application):
+    def __init__(self):
+        handlers = [
+            (r"/get_attendance_data/", SocketOutputHandler),
+            (r"/save_attendance_data/", EmployeeInputHandler),
+        ]
+
