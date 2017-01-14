@@ -1,3 +1,4 @@
+import json
 import uuid
 import datetime
 
@@ -31,6 +32,7 @@ def save_employee_data(data):
         conn = engine.connect()
         current_time = str(datetime.datetime.now())
         checkin_id = str(uuid.uuid4())
+        data = json.loads(data)
         sql_string = "insert into {0} values('{1}', '{2}', '{3}', '{4}', '{5}')".format(Employee.__tablename__,
                                                                               checkin_id,
                                                                               data['name'],
