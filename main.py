@@ -2,6 +2,7 @@ import json
 
 from tornado.ioloop import IOLoop
 from tornado.websocket import WebSocketHandler
+from tornado.web import RequestHandler
 from tornado.web import Application
 
 from components import db_handler
@@ -39,8 +40,7 @@ class SocketOutputHandler(WebSocketHandler):
             active_clients.remove(self)
 
 
-
-class EmployeeInputHandler(Application):
+class EmployeeInputHandler(RequestHandler):
     def post(self, *args, **kwargs):
         data = self.request.body
         send_data_to_clients(data)
@@ -54,4 +54,16 @@ class MainApplication(Application):
             (r"/get_attendance_data/", SocketOutputHandler),
             (r"/save_attendance_data/", EmployeeInputHandler),
         ]
+        Application.__init__(self, handlers)
+
+
+def main():
+    app_instance = MainApplication()
+    print("[*] starting socket app at 8001")
+    app_instance.listen(8001)
+    IOLoop.instance().start()
+
+
+if __name__ == "__main__":
+    main()
 
