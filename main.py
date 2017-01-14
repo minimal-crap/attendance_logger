@@ -43,9 +43,8 @@ class SocketOutputHandler(WebSocketHandler):
 class EmployeeInputHandler(RequestHandler):
     def post(self, *args, **kwargs):
         data = self.request.body
-        send_data_to_clients(data)
-        message = json.loads(data)
-        db_handler.save_employee_data(data)
+        response_data = db_handler.save_employee_data(data)
+        send_data_to_clients(response_data)
 
 
 class MainApplication(Application):
