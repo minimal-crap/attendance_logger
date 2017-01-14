@@ -7,6 +7,7 @@ var table_columns = [
             {title:"department"},
             {title:"check-in time"}
            ];
+
 $(document).ready(function(){
     var ws = new WebSocket(web_socket_url);
     console.log("testing");
@@ -15,6 +16,21 @@ $(document).ready(function(){
         //logic to process incoming push messages
         //goes here
         console.log(event.data);
+        $('#attendance-live-table').dataTable().fnDestroy();
+        var current_data_obj = JSON.parse(event.data);
+        var current_array = [
+            current_data_obj["checkin_id"],
+            current_data_obj["name"],
+            current_data_obj["designation"],
+            current_data_obj["department"],
+            current_data_obj["checkin_time"]
+        ];
+        data_set.push(current_array);
+
+        $("#attendance-live-table").DataTable({
+        data: data_set,
+        columns: table_columns});
+
     };
 
     $("#attendance-live-table").DataTable({
