@@ -33,17 +33,19 @@ def save_employee_data(data):
         current_time = str(datetime.datetime.now())
         data = json.loads(data)
         checkin_id = str(uuid.uuid4())
-        sql_string = "insert into {0} values('{1}', '{2}', '{3}', '{4}', '{5}')".format(Employee.__tablename__,
-                                                                              checkin_id,
-                                                                              data['name'],
-                                                                              data['designation'],
-                                                                              data['department'],
-                                                                              current_time)
+        sql_string = "insert into {0} values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}')".format(Employee.__tablename__,
+                                                                                               checkin_id,
+                                                                                               data['name'],
+                                                                                               data['designation'],
+                                                                                               data['in_out'],
+                                                                                               data['department'],
+                                                                                               current_time)
         conn.execute(sql_string)
-        return {"checkin_id":checkin_id,
+        return {"checkin_id": checkin_id,
                 "name": data['name'],
                 "designation": data['designation'],
-                "department":data['department'],
-                "checkin_time":current_time}
+                "in_out": data['in_out'],
+                "department": data['department'],
+                "checkin_time": current_time}
     except Exception as err:
         print err.message
