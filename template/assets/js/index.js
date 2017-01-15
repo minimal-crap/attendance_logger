@@ -4,6 +4,7 @@ var table_columns = [
             {title:"id"},
             {title:"name"},
             {title:"designation"},
+            {title:"in_out"},
             {title:"department"},
             {title:"check-in time"}
            ];
@@ -22,6 +23,7 @@ $(document).ready(function(){
             current_data_obj["checkin_id"],
             current_data_obj["name"],
             current_data_obj["designation"],
+            current_data_obj["in_out"]
             current_data_obj["department"],
             current_data_obj["checkin_time"]
         ];
