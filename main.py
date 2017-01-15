@@ -1,9 +1,11 @@
 import json
+import os
 
 from tornado.ioloop import IOLoop
 from tornado.websocket import WebSocketHandler
 from tornado.web import RequestHandler
 from tornado.web import Application
+from tornado.web import StaticFileHandler
 
 from components import db_handler
 
@@ -52,6 +54,9 @@ class MainApplication(Application):
         handlers = [
             (r"/get_attendance_data/", SocketOutputHandler),
             (r"/save_attendance_data/", EmployeeInputHandler),
+            (r"/static/(.*)",
+             StaticFileHandler,
+             {'path': os.path.join(os.curdir, "template", "assets")})
         ]
         Application.__init__(self, handlers)
 
