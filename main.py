@@ -42,6 +42,11 @@ class SocketOutputHandler(WebSocketHandler):
             active_clients.remove(self)
 
 
+class DashboardHandler(RequestHandler):
+    def get(self):
+        self.render("./template/index.html")
+
+
 class EmployeeInputHandler(RequestHandler):
     def post(self, *args, **kwargs):
         data = self.request.body
@@ -54,6 +59,7 @@ class MainApplication(Application):
         handlers = [
             (r"/get_attendance_data/", SocketOutputHandler),
             (r"/save_attendance_data/", EmployeeInputHandler),
+            (r"/dashboard/", DashboardHandler),
             (r"/static/(.*)",
              StaticFileHandler,
              {'path': os.path.join(os.curdir, "template", "assets")})
